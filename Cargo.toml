@@ -1,0 +1,31 @@
+[package]
+name = "my-project-name"
+version = "0.0.0"
+edition = "2021"
+build = "build.rs"
+include = ["/src", "README.md", "build.rs"]
+
+[dependencies]
+actix-rt = "2.10.0"
+actix-web = { version = "4.7", features = ["openssl"] }
+actix-cors = "0.7"
+actix-web-prom = { version = "0.8.0", features = [ "process" ] }
+diesel = { version = "2.2", features = ["chrono", "postgres", "r2d2", "serde_json", "uuid"] }
+diesel_migrations = "2.2"
+env_logger = "0.11"
+log = "0.4"
+prometheus = "0.13.4"
+r2d2 = "0.8"
+serde =  { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+utoipa = { version = "4.2", features = ["actix_extras", "uuid"] }
+utoipa-swagger-ui = { version = "7.1", features = ["actix-web"] }
+openssl = "0.10.64"
+
+[build-dependencies]
+chrono = "0.4"
+
+[dev-dependencies]
+actix-service = "2.0.2"
+actix-http = "3.8.0"
+testcontainers = "0.20.1"

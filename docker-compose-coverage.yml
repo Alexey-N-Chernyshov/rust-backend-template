@@ -1,0 +1,12 @@
+version: "2.4"
+
+services:
+  my-project-name:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: coverage
+    network_mode: host
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+     - ./coverage_report/:/coverage_report

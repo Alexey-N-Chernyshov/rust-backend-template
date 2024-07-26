@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:15
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  my-project-name:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - develop.env
+    networks:
+      - postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  postgres:
+    driver: bridge
