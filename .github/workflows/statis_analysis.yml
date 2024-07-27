@@ -35,6 +35,9 @@ jobs:
           clippy-sarif | tee results.sarif | sarif-fmt
         shell: bash
 
+      - name: Machete
+        uses: bnjbvr/cargo-machete@main
+
       - name: Upload SARIF file
         if: always()
         uses: github/codeql-action/upload-sarif@v3
