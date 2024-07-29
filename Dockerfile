@@ -55,8 +55,8 @@ RUN apt-get update \
 
 EXPOSE 8080
 
-ENV TZ=Etc/UTC \
-    APP_USER=appuser
+ARG APP_USER=appuser
+ENV TZ=Etc/UTC
 
 RUN groupadd "$APP_USER" \
     && useradd -g "$APP_USER" "$APP_USER" \
