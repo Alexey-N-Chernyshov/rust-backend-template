@@ -1,7 +1,6 @@
 use actix_cors::Cors;
 use actix_web::middleware::Logger;
 use actix_web::{web, App, HttpServer};
-use actix_web_prom::PrometheusMetricsBuilder;
 use log::info;
 use my_project_name::config::ServerConfig;
 use my_project_name::db::create_connection_pool;
@@ -25,12 +24,8 @@ async fn main() -> std::io::Result<()> {
     let db_connection_pool = create_connection_pool(&db_url);
     db::init(db_url.as_str());
 
-    let prometheus = PrometheusMetricsBuilder::new("api")
-        .endpoint("/metrics")
-        .build()
-        .unwrap();
     let metrics = Arc::new(Metrics::new());
-    // TODO add metrics to prometheus
+    let prometheus = metrics.prometheus();
 
     let app_metrics = metrics.clone();
     let app_config = config.clone();
