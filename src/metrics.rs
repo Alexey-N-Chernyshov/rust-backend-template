@@ -1,5 +1,7 @@
 use crate::db::Pool;
 use actix_web::rt::time;
+use actix_web_prom::PrometheusMetrics;
+use actix_web_prom::PrometheusMetricsBuilder;
 use log::error;
 use prometheus::IntGauge;
 use std::sync::Arc;
@@ -21,6 +23,14 @@ impl Metrics {
             my_project_metric: IntGauge::new("my_project_metric", "my_project_metric description")
                 .unwrap(),
         }
+    }
+
+    pub fn prometheus(&self) -> PrometheusMetrics {
+        // TODO add metrics to prometheus
+        PrometheusMetricsBuilder::new("api")
+            .endpoint("/metrics")
+            .build()
+            .unwrap()
     }
 }
 
