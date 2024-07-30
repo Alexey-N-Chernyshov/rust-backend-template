@@ -50,7 +50,7 @@ FROM debian:bookworm-slim
 ARG APP=/usr/src/app
 
 RUN apt-get update \
-    && apt-get install -y ca-certificates tzdata libpq-dev pkg-config libssl-dev curl \
+    && apt-get install -y libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8080

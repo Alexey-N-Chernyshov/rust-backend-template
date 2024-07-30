@@ -8,9 +8,7 @@ use my_project_name::metrics::Metrics;
 use my_project_name::routes::init_routes;
 use my_project_name::server_state::ServerState;
 use my_project_name::{db, error_handler};
-use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 use std::env;
-use std::io::{Error, ErrorKind};
 use std::sync::Arc;
 
 #[actix_web::main]
@@ -57,39 +55,9 @@ async fn main() -> std::io::Result<()> {
         .parse::<u16>()
         .unwrap();
 
-    let ssl_support = env::var("SSL_ENABLED")
-        .unwrap_or_else(|_| "false".to_string())
-        .to_ascii_lowercase();
-    match ssl_support.as_str() {
-        "true" => {
-            info!("Starting with SSL_ENABLED");
-            let ssl_key_path =
-                env::var("SSL_KEY_PATH").unwrap_or_else(|_| "ssl/key.pem".to_string());
-            let ssl_cert_path =
-                env::var("SSL_CERT_PATH").unwrap_or_else(|_| "ssl/cert.pem".to_string());
-            let mut ssl_builder = SslAcceptor::mozilla_intermediate(SslMethod::tls())?;
-            ssl_builder
-                .set_private_key_file(ssl_key_path, SslFiletype::PEM)
-                .unwrap();
-            ssl_builder
-                .set_certificate_chain_file(ssl_cert_path)
-                .unwrap();
-
-            HttpServer::new(app_factory)
-                .bind_openssl((bind_ip, bind_port), ssl_builder)?
-                .run()
-                .await
-        }
-        "false" => {
-            info!("Starting without TLS.");
-            HttpServer::new(app_factory)
-                .bind((bind_ip, bind_port))?
-                .run()
-                .await
-        }
-        _ => Err(Error::new(
-            ErrorKind::Other,
-            "Wrong SSL_ENABLED environment variable value, must be `true` or `false`!",
-        )),
-    }
+    info!("Starting server");
+    HttpServer::new(app_factory)
+        .bind((bind_ip, bind_port))?
+        .run()
+        .await
 }

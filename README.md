@@ -19,9 +19,6 @@ The template contains:
 There is a list of configuration env vars with default values:
 - `BIND_ADDRESS=127.0.0.1` - address to bind.
 - `BIND_PORT=8080` - port to bind.
-- `SSL_ENABLED=false` - starts with SSL support. Supported values are true/false.
-- `SSL_KEY_PATH=ssl/key.pem` - path to SSL key, if SSL enabled.
-- `SSL_CERT_PATH=ssl/cert.pem` - path to SSL certificate, if SSL enabled.
 
 ## Run local
 Provide `develop.env` for docker compose.
