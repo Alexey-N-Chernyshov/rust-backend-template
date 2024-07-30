@@ -1,10 +1,3 @@
 #!/bin/bash
 
-if [ $SSL_ENABLED == "true" ]; then
-  curl -f -k https://localhost:$BIND_PORT/health || exit 1
-elif [ $SSL_ENABLED == "false" ]; then
-  curl -f -k http://localhost:$BIND_PORT/health || exit 1
-else
-  echo "SSL_ENABLED must be true or false"
-  exit 1
-fi
+exec 4<>/dev/tcp/127.0.0.1/8080 && echo -e "GET /health HTTP/1.0\n" >&4 && cat <&4 | grep ".*\"healthy\":true.*"
