@@ -26,5 +26,5 @@ chrono = "0.4"
 
 [dev-dependencies]
 actix-service = "2.0.2"
-actix-http = "3.8.0"
+actix-http = "3.9.0"
 testcontainers = "0.21.0"
