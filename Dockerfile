@@ -62,9 +62,9 @@ RUN groupadd "$APP_USER" \
     && useradd -g "$APP_USER" "$APP_USER" \
     && mkdir -p ${APP}
 
-COPY --from=builder /my-project-name/target/release/my-project-name ${APP}/my-project-name
-
 RUN chown -R "$APP_USER":"$APP_USER" ${APP}
+
+COPY --from=builder /my-project-name/target/release/my-project-name ${APP}/my-project-name
 
 USER $APP_USER
 WORKDIR ${APP}
