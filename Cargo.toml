@@ -7,7 +7,7 @@ include = ["/src", "README.md", "build.rs"]
 
 [dependencies]
 actix-rt = "2.10.0"
-actix-web = { version = "4.7" }
+actix-web = { version = "4.9" }
 actix-cors = "0.7"
 actix-web-prom = { version = "0.8.0", features = [ "process" ] }
 diesel = { version = "2.2", features = ["chrono", "postgres", "r2d2", "serde_json", "uuid"] }
