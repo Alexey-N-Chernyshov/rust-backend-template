@@ -1,4 +1,4 @@
-FROM rust:1.80 AS builder
+FROM rust:1.81 AS builder
 
 # cache project dependencies
 RUN USER=root cargo new my-project-name
@@ -28,7 +28,7 @@ RUN cargo test --no-run
 ENTRYPOINT ["cargo" , "test"]
 
 # generates coverage report
-FROM rust:1.80 AS coverage
+FROM rust:1.81 AS coverage
 RUN cargo install grcov
 RUN rustup component add llvm-tools-preview
 # install docker for integration tests
