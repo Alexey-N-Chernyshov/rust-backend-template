@@ -19,7 +19,7 @@ r2d2 = "0.8"
 serde =  { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 utoipa = { version = "4.2", features = ["actix_extras", "uuid"] }
-utoipa-swagger-ui = { version = "7.1", features = ["actix-web", "reqwest"] }
+utoipa-swagger-ui = { version = "8.0", features = ["actix-web", "reqwest"] }
 
 [build-dependencies]
 chrono = "0.4"
